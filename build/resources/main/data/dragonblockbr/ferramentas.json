@@ -1,0 +1,194 @@
+[
+  {
+    "nome": "dlog_sword",
+    "tipo": "espada",
+    "tier": "DIAMOND",
+    "durabilidade": 2000,
+    "dano": 8,
+    "velocidade_ataque": -2.4
+  },
+  {
+    "nome": "dlog_axe",
+    "tipo": "machado",
+    "tier": "DIAMOND",
+    "durabilidade": 1800,
+    "dano": 10,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "dnomaid_sword",
+    "tipo": "espada",
+    "tier": "DIAMOND",
+    "durabilidade": 1561,
+    "dano": 7,
+    "velocidade_ataque": -2.4
+  },
+  {
+    "nome": "dnomaid_axe",
+    "tipo": "machado",
+    "tier": "DIAMOND",
+    "durabilidade": 1400,
+    "dano": 9,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "brave_sword",
+    "tipo": "espada",
+    "tier": "IRON",
+    "durabilidade": 500,
+    "dano": 6,
+    "velocidade_ataque": -2.4
+  },
+  {
+    "nome": "dimension_sword",
+    "tipo": "espada",
+    "tier": "NETHERITE",
+    "durabilidade": 2500,
+    "dano": 9,
+    "velocidade_ataque": -2.4
+  },
+  {
+    "nome": "z_sword",
+    "tipo": "espada",
+    "tier": "DIAMOND",
+    "durabilidade": 3000,
+    "dano": 10,
+    "velocidade_ataque": -2.4
+  },
+  {
+    "nome": "lehnori_sword",
+    "tipo": "espada",
+    "tier": "GOLD",
+    "durabilidade": 32,
+    "dano": 4,
+    "velocidade_ataque": -2.4
+  },
+  {
+    "nome": "lehnori_axe",
+    "tipo": "machado",
+    "tier": "GOLD",
+    "durabilidade": 32,
+    "dano": 6,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "mahagony_sword",
+    "tipo": "espada",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 2,
+    "velocidade_ataque": -2.4
+  },
+  {
+    "nome": "mahagony_axe",
+    "tipo": "machado",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 4,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "mahagony_pickaxe",
+    "tipo": "picareta",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 1,
+    "velocidade_ataque": -2.8
+  },
+  {
+    "nome": "mahagony_shovel",
+    "tipo": "pa",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 1,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "mahagony_hoe",
+    "tipo": "enxada",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 0,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "maple_sword",
+    "tipo": "espada",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 2,
+    "velocidade_ataque": -2.4
+  },
+  {
+    "nome": "maple_axe",
+    "tipo": "machado",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 4,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "maple_pickaxe",
+    "tipo": "picareta",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 1,
+    "velocidade_ataque": -2.8
+  },
+  {
+    "nome": "maple_shovel",
+    "tipo": "pa",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 1,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "maple_hoe",
+    "tipo": "enxada",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 0,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "sakura_sword",
+    "tipo": "espada",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 2,
+    "velocidade_ataque": -2.4
+  },
+  {
+    "nome": "sakura_axe",
+    "tipo": "machado",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 4,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "sakura_pickaxe",
+    "tipo": "picareta",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 1,
+    "velocidade_ataque": -2.8
+  },
+  {
+    "nome": "sakura_shovel",
+    "tipo": "pa",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 1,
+    "velocidade_ataque": -3.0
+  },
+  {
+    "nome": "sakura_hoe",
+    "tipo": "enxada",
+    "tier": "WOOD",
+    "durabilidade": 59,
+    "dano": 0,
+    "velocidade_ataque": -3.0
+  }
+]

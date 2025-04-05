@@ -2,42 +2,48 @@ package org.juan.dragonblockbr.attributes;
 
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
 
-public class PlayerAttributesImpl implements PlayerAttributes{
-    private PlayerEntity player;
-    int unspentPoints = 0;
-    int ki = 2000;
-    int kiatk;
-    int atk;
-    int spatk;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+public class PlayerAttributesImpl implements PlayerAttributes, ICapabilityProvider {
+    private final LazyOptional<PlayerAttributes> holder = LazyOptional.of(() -> this);
+
+    private float maxHealth;
+    private int stamina;
+    private int unspentPoints = 0;
+    private int ki = 2000;
+    private int kiatk;
+    private int atk;
+    private int spatk;
+
 
     public PlayerAttributesImpl(){}
 
-    public void setPlayer(PlayerEntity player) {
-        this.player = player;
-    }
 
     @Override
     public float getMaxHealth() {
-        return (float) player.getAttributeValue(Attributes.MAX_HEALTH);
+        return this.maxHealth;
     }
     @Override
     public void setMaxHealth(float value) {
-        player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(value);
+        this.maxHealth=value;
     }
 
 
 
     @Override
     public int getStamina() {
-        return (player != null) ? player.getFoodData().getFoodLevel() : 0;
+        return  this.stamina;
     }
     @Override
     public void setStamina(int value) {
-        player.getFoodData().setFoodLevel(value); // Atualiza a fome do jogador
+        this.stamina=value;
     }
-
-
 
     @Override
     public int getKi() {
@@ -93,5 +99,12 @@ public class PlayerAttributesImpl implements PlayerAttributes{
     }
 
 
-
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (cap == AttributesCapabilities.PLAYER_ATTRIBUTES_CAP) {
+            return holder.cast();
+        }
+        return LazyOptional.empty();
+    }
 }

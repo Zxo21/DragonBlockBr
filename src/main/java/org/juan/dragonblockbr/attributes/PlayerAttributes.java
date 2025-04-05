@@ -2,7 +2,6 @@ package org.juan.dragonblockbr.attributes;
 
 public interface PlayerAttributes {
 
-
     float getMaxHealth();
     void setMaxHealth(float value);
 

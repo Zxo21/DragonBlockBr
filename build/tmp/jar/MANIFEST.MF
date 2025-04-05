@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: dragonblockbr
-Implementation-Version: 1.0-SNAPSHOT
+Implementation-Version: 1.16.5-1.0
 Specification-Vendor: Juan
 Specification-Title: dragonblockbr
-Implementation-Timestamp: 2025-04-02T17:30:05-0300
+Implementation-Timestamp: 2025-04-04T11:47:10-0300
 Specification-Version: 1
 Implementation-Vendor: Juan
 

@@ -4,51 +4,51 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import org.juan.dragonblockbr.DragonBlock;
 import org.juan.dragonblockbr.attributes.AttributesCapabilities;
 import org.juan.dragonblockbr.attributes.PlayerAttributes;
 
+@Mod.EventBusSubscriber(modid = DragonBlock.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PlayerGui {
 
-    private static final ResourceLocation HEALTH_BAR_BACK = new ResourceLocation("examplemod", "textures/gui/img_background.png");
-    private static final ResourceLocation HEALTH_BAR_FILL = new ResourceLocation("examplemod", "textures/gui/img_fill.png");
-    private static final ResourceLocation KI_BAR = new ResourceLocation("examplemod", "textures/gui/ki_bar.png");
-    private static final ResourceLocation FOOD_BAR = new ResourceLocation("examplemod", "textures/gui/food_bar.png");
+    private static final ResourceLocation HEALTH_BAR_BACK = new ResourceLocation("dragonblockbr", "textures/gui/img_background.png");
+    private static final ResourceLocation HEALTH_BAR_FILL = new ResourceLocation("dragonblockbr", "textures/gui/img_fill.png");
+    private static final ResourceLocation KI_BAR = new ResourceLocation("dragonblockbr", "textures/gui/ki_bar.png");
+    private static final ResourceLocation STAMINA_BAR = new ResourceLocation("dragonblockbr", "textures/gui/food_bar.png");
+
 
     @SubscribeEvent
     public static void onRenderGameOverlay(RenderGameOverlayEvent event) {
-        // Cancela as barras padrão
+
+        // Cancela o evento que carrega o GUI padrão do jogo
         if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTH ||
                 event.getType() == RenderGameOverlayEvent.ElementType.FOOD) {
             event.setCanceled(true);
         }
 
-        // Renderiza as barras personalizadas
+        // Renderiza o GUI personalizado
         if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-            renderCustomHealthBar(event.getMatrixStack());
-            renderCustomFoodBar(event.getMatrixStack());
+            renderHealthBar(event.getMatrixStack());
+            renderStaminaBar(event.getMatrixStack());
             renderKiBar(event.getMatrixStack());
         }
     }
 
 
-    private static void renderCustomHealthBar(MatrixStack matrixStack) {
+    private static void renderHealthBar(MatrixStack matrixStack) {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
 
         if (player == null) return;
 
-        // Obtém a capacidade do jogador (se existir)
-        LazyOptional<PlayerAttributes> capability = player.getCapability(AttributesCapabilities.PLAYER_ATTRIBUTES_CAP);
-        if (!capability.isPresent()) return; // Se não houver capability, sai
-
-        capability.ifPresent(attrs -> {
             float health = player.getHealth();
-            float maxHealth = attrs.getMaxHealth(); // Usa o maxHealth da capability
+            float maxHealth = player.getMaxHealth();
 
-            // Configurações da barra
             int screenWidth = minecraft.getWindow().getGuiScaledWidth();
             int screenHeight = minecraft.getWindow().getGuiScaledHeight();
             int healthBarWidth = 153;
@@ -56,73 +56,56 @@ public class PlayerGui {
             int x = (int) (screenWidth * 0.05);
             int y = (int) (screenHeight * 0.05);
 
-            // Renderiza o fundo da barra
             minecraft.getTextureManager().bind(HEALTH_BAR_BACK);
             minecraft.gui.blit(matrixStack, x, y, 0, 0, healthBarWidth, healthBarHeight, healthBarWidth, healthBarHeight);
 
-            // Calcula a largura preenchida (garante que não ultrapasse 100%)
             int filledWidth = (int) Math.min((health / maxHealth) * healthBarWidth, healthBarWidth);
 
-            // Renderiza a parte preenchida da barra
             minecraft.getTextureManager().bind(HEALTH_BAR_FILL);
             minecraft.gui.blit(matrixStack, x, y, 0, 0, filledWidth, healthBarHeight, healthBarWidth, healthBarHeight);
-        });
+
     }
 
     private static void renderKiBar(MatrixStack matrixStack) {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
-
-        // Ensure the player exists and the game is in a valid state
         if (player == null || minecraft.level == null) return;
 
-        // Get the Ki capability
+
         player.getCapability(AttributesCapabilities.PLAYER_ATTRIBUTES_CAP).ifPresent(attrs -> {
             float kiAtual = attrs.getKi();
-            float kiMaximo = 1000; // Maximum Ki value
+            float kiMaximo = 1000;
 
-            // Get screen dimensions
             int screenWidth = minecraft.getWindow().getGuiScaledWidth();
             int screenHeight = minecraft.getWindow().getGuiScaledHeight();
+            int kiBarWidth = 60, kiBarHeight = 5;
 
-            // Ki bar dimensions
-            int kiBarWidth = 60;
-            int kiBarHeight = 5;
-            int x = (int) (screenWidth * 0.05); // 5% from the left
-            int y = (int) (screenHeight * 0.05) + 30; // 5% from the top, plus 30 pixels
+            int x = (int) (screenWidth * 0.05), y = (int) (screenHeight * 0.05) + 30; // 5% from the left
 
-
-            // Calculate the width of the filled Ki bar
             int filledWidth = (int) ((kiAtual / kiMaximo) * kiBarWidth);
 
-            // Bind and render the filled portion of the Ki bar
             minecraft.getTextureManager().bind(KI_BAR);
             minecraft.gui.blit(matrixStack, x, y, 0, 0, filledWidth, kiBarHeight, kiBarWidth, kiBarHeight);
         });
     }
 
 
-    private static void renderCustomFoodBar(MatrixStack matrixStack) {
+    private static void renderStaminaBar(MatrixStack matrixStack) {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
-
         if (player == null) return;
-
-        player.getCapability(AttributesCapabilities.PLAYER_ATTRIBUTES_CAP).ifPresent(attrs -> {
-            int stamina = attrs.getStamina();
+        int stamina = player.getFoodData().getFoodLevel();
 
             int screenWidth = minecraft.getWindow().getGuiScaledWidth();
             int screenHeight = minecraft.getWindow().getGuiScaledHeight();
-            int foodBarWidth = 60;
-            int foodBarHeight = 5;
-            int x = (int) (screenWidth * 0.05);
-            int y = (int) (screenHeight * 0.05) + 20; // 15 pixels abaixo da barra de vida
+            int foodBarWidth = 60,foodBarHeight = 5;
+            int x = (int) (screenWidth * 0.05), y = (int) (screenHeight * 0.05) + 20;
 
 
             int filledWidth = (int) ((stamina / 20.0f) * foodBarWidth);
-            minecraft.getTextureManager().bind(FOOD_BAR);
+            minecraft.getTextureManager().bind(STAMINA_BAR);
             minecraft.gui.blit(matrixStack, x, y, 0, 0, filledWidth, foodBarHeight, foodBarWidth, foodBarHeight);
-        });
+
     }
 
 }
